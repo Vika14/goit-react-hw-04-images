@@ -26,7 +26,7 @@ export const App = () => {
           return alert('No images');
         }
         setImages(previmages => [...previmages, ...fetch.images]);
-        setTotalImages(totalImages);
+        setTotalImages(fetch.totalImages);
       } catch (error) {
         console.log(error.message);
       } finally {
@@ -80,7 +80,9 @@ export const App = () => {
         <React.Fragment>
           <Searchbar onSubmit={handleSubmit} />
           <ImageGallery onImageClick={handleImageClick} images={images} />
-          {images.length > 0 ? <Button onClick={handleLoadMore} /> : null}
+          {images.length !== totalImages ? (
+            <Button onClick={handleLoadMore} />
+          ) : null}
         </React.Fragment>
       )}
       {modalOpen ? (

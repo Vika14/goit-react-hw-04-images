@@ -23,11 +23,10 @@ export const App = () => {
         setIsLoading(true);
         const fetch = await fetchImages(currentSearch, page);
         if (fetch.totalImages === 0) {
-          alert('No images');
-          return;
+          return alert('No images');
         }
         setImages(previmages => [...previmages, ...fetch.images]);
-        setTotalImages(fetch.totalImages);
+        setTotalImages(totalImages);
       } catch (error) {
         console.log(error.message);
       } finally {

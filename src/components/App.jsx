@@ -53,10 +53,10 @@ export const App = () => {
     setPage(page + 1);
   };
 
-  const handleImageClick = e => {
+  const handleImageClick = (src, alt) => {
     setModalOpen(true);
-    setModalAlt(e.target.alt);
-    setModalImg(e.target.name);
+    setModalAlt(alt);
+    setModalImg(src);
   };
 
   const handleModalClose = () => {
@@ -74,17 +74,12 @@ export const App = () => {
         paddingBottom: '24px',
       }}
     >
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <React.Fragment>
-          <Searchbar onSubmit={handleSubmit} />
-          <ImageGallery onImageClick={handleImageClick} images={images} />
-          {images.length !== totalImages ? (
-            <Button onClick={handleLoadMore} />
-          ) : null}
-        </React.Fragment>
+      <Searchbar onSubmit={handleSubmit} />
+      <ImageGallery onImageClick={handleImageClick} images={images} />
+      {images.length !== totalImages && !isLoading && (
+        <Button onClick={handleLoadMore} />
       )}
+      {isLoading && <Loader />}
       {modalOpen ? (
         <Modal src={modalImg} alt={modalAlt} modalClose={handleModalClose} />
       ) : null}
